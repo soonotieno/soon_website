@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 class PostList(ListView):
@@ -9,6 +9,21 @@ class PostList(ListView):
     def get_queryset(self):
         return Post.objects.order_by('-created')
 
+
+class PostDetail(DetailView):
+    model = Post
+
+# def post_detail(request, pk):
+#     blog_post = Post.objects.get(pk=pk)
+#
+#     return render(
+#         request,
+#         'blog/post_detail.html',
+#         {
+#             'blog_post': blog_post,
+#         }
+#     )
+
 # def index(request):
 #     posts = Post.objects.all()
 #     return render(
@@ -16,6 +31,5 @@ class PostList(ListView):
 #         'blog/post_list.html',
 #         {
 #             'posts': posts,
-#             'a_plus_b': 1 + 3,
 #         }
 #     )

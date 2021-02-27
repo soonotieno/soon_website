@@ -9,8 +9,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'categories'
 
-# Create your models here.
+
 class Post(models.Model):
     title = models.TextField(max_length=30)
     content = models.TextField()

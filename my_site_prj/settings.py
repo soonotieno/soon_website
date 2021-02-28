@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog',
     'markdownx',
+    'crispy_forms',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,3 +129,4 @@ MEDIA_URL = '/media/'
 
 from datetime import datetime
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

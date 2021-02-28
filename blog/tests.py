@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 
 # Create your tests here.
-from blog.models import Post, Category, Tag
+from blog.models import Post, Category, Tag, Comment
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -27,6 +27,19 @@ def create_tag(name='some_tag'):
     tag.save()
 
     return tag
+
+
+def create_comment(post, text='a_comment', author=None):
+    if author is None:
+        author, is_created = User.objects.get_or_create(
+            username='guest',
+            password='questpassword'
+        )
+    comment = Comment.objects.create(
+        post=post,
+        text=text,
+        author=author,
+    )
 
 
 def create_post(title, content, author, category=None):
@@ -92,6 +105,25 @@ class TestModel(TestCase):
             author=self.author_000,
             category=category,
         )
+
+    def test_comment(self):
+        post_000 = create_post(
+            title='The first post',
+            content='Hello World. We Are The World',
+            author=self.author_000,
+        )
+
+        self.assertEqual(Comment.objects.count(), 0)
+        comment_000 = create_comment(
+            post=post_000
+        )
+
+        comment_001 = create_comment(
+            post=post_000,
+            text='second comment'
+        )
+        self.assertEqual(Comment.objects.count(), 2)
+        self.assertEqual(post_000.comment_set.count(), 2)
 
 
 class TestView(TestCase):
@@ -321,6 +353,10 @@ class TestView(TestCase):
         self.assertNotIn(post_001.title, main_div.text)
 
     def test_post_create(self):
+        response = self.client.get('/blog/create/')
+        self.assertNotEqual(response.status_code, 200)
+
+        self.client.login(username='smith', password='nopassword')
         response = self.client.get('/blog/create/')
         self.assertEqual(response.status_code, 200)
 

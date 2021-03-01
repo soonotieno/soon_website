@@ -19,8 +19,8 @@ from . import views
 urlpatterns = [
     path('tag/<str:slug>/', views.PostListByTag.as_view()),
     path('category/<str:slug>/', views.PostListByCategory.as_view()),
-    path('delete_comment/<int:pk>/', views.CommentDelete.as_view()),
-    # path('delete_comment/<int:pk>/', views.delete_comment),
+    # path('delete_comment/<int:pk>/', views.CommentDelete.as_view()), #CBV(Class Base View)에 입각한 댓글 삭제 구현 url 코드
+    path('delete_comment/<int:pk>/', views.delete_comment),
     path('<int:pk>/new_comment/', views.new_comment),
     path('<int:pk>/update/', views.PostUpdate.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),

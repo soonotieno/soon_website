@@ -1,6 +1,30 @@
 {% extends 'basecamp/base_full.html' %}
+{% load static %}
 {% block content %}
     <div class="container">
-        <h1>About_Me</h1>
+        <div class="row">
+            <div class="col-md-9">
+                <h1 class="my-3">About Me</h1>
+
+                <h3 class="my-3">안녕하세요. SooN InvesT 안종순 입니다.</h3>
+                <p class="font-weight-bold">이 웹사이트는 모든 사람들에게 유용한 금융/투자 정보를 공유하는 사이트입니다. python을 활용한 금융 데이터 분석을 통한 투자 정보 공유와 금융데이터 분석 결과를 django framework를 활용한 (이)사이트에 올릴 예정입니다.</p>
+
+                <p class="text-muted">"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
+            </div>
+            <div class="col-md">
+                <img class="img-fluid" src="{% static 'basecamp/images/soon.jpg' %}"/>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-fluid" src="{% static 'basecamp/images/contactus.jpg' %}"/>
+        </div>
+        <div class="col-md">
+            <h3 class="my-2">Contact Us</h3>
+            <h5 class="my-1">E-mail : <small>soonotieno@gmail.com</small></h5>
+            <p class="text-muted">혹시 사이트에 대한 문의 사항이나 추가/개선 되었으면 하는 서비스가 있으면 언제든지 연락주십쇼!</p>
+        </div>
+    </div>
+
     </div>
 {% endblock %}

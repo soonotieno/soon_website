@@ -17,6 +17,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('search/<str:q>/', views.PostSearch.as_view()),
     path('tag/<str:slug>/', views.PostListByTag.as_view()),
     path('category/<str:slug>/', views.PostListByCategory.as_view()),
     # path('delete_comment/<int:pk>/', views.CommentDelete.as_view()), #CBV(Class Base View)에 입각한 댓글 삭제 구현 url 코드

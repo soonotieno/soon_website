@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from django.db.models import Q
 
+
 class PostList(ListView):
     model = Post
     paginate_by = 5

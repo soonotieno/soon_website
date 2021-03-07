@@ -8,9 +8,9 @@
     <h1>{{ object.title }}</h1>
 
     {% if object.category %}
-        <span class="badge bg-primary float-right">{{ object.category }}</span>
+        <span class="badge bg-warning float-right text-white">{{ object.category }}</span>
     {% else %}
-        <span class="badge bg-primary float-right">미분류</span>
+        <span class="badge bg-warning float-right text-white">기타</span>
     {% endif %}
 
     <!-- Author -->
@@ -52,7 +52,7 @@
                 <div class="form-group">
                     {{ comment_form | crispy }}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-outline-dark float-right">댓글 달기</button>
             </form>
             {% else %}
             <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#loginModal">
@@ -72,8 +72,8 @@
                 {% endif %}
                 <div class="media-body">
                     {% if comment.author == request.user %}
-                        <button class="btn-sm btn-info float-right" onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
-                        <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">delete</button>
+                        <button class="btn-sm btn-info float-right"  onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">수정</button>
+                        <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
                     {% endif %}
                     <h5 class="mt-0"> {{ comment.author }} <small class="text-muted">  {{ comment.created_at }}</small></h5>
                     {{ comment.get_markdown_content | safe }}

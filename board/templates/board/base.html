@@ -1,6 +1,17 @@
-{% extends 'board/base.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Board{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/_assets/css/custom.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body style="background-color: #ffffff">
 
-{% block content %}
+{% include 'basecamp/navbar.html' %}
 
 <div class="container my-3">
     <div class="row">
@@ -16,14 +27,6 @@
                     </div>
                 </div>
             </section>
-
-
-
-            <div class="alert alert-info small" role="alert">
-                이 페이지는 의견 교환을 위해 따로 만든 페이지입니다. 책에서 이 페이지를 만드는 법을 직접적으로 다루지는 않습니다. <br/> 하지만, 책을 끝까지 읽고 나면 이 페이지도 만드실 수 있을거에요.
-            </div>
-
-
 
             <table class="table" id="board-table">
                 <thead class="thead-dark">
@@ -111,10 +114,6 @@
                     </li>
 
 
-
-
-
-
                     <li class="page-item active" aria-current="page">
               <span class="page-link">
                 1
@@ -156,23 +155,17 @@
             <!-- Categories Widget -->
             <div class="card" id="category-card">
                 <ul class="list-group list-group-flush">
-                    <li id="category-free-board"
-                        class="list-group-item bg-secondary text-white"
-                        style="cursor:pointer"
-                        onclick="location.href='/board/free-board/'">
-                        자유게시판
-                    </li>
                     <li id="category-qna"
                         class="list-group-item "
                         style="cursor:pointer"
-                        onclick="location.href='/board/qna/'">
-                        Q&A
+                        onclick="location.href='#'">
+                        자유 게시판
                     </li>
                     <li id="category-gallery"
                         class="list-group-item "
                         style="cursor:pointer"
                         onclick="location.href='/board/gallery/'">
-                        웹사이트 자랑하기
+                        QnA
                     </li>
                 </ul>
             </div>
@@ -181,4 +174,47 @@
 </div>
 
 
-{% endblock %}
+
+<script>
+    function search_post(){
+        var search_value = document.getElementById('search_input').value;
+        location.href="/blog/search/" + search_value + "/";
+    }
+
+    function wait_for_enterkey(){
+        if (window.event.keyCode == 13){
+            search_post();
+        }
+    }
+</script>
+
+{#<script>#}
+{#    function searchPost(){#}
+{#        let searchValue = document.getElementById('search_input').value.trim();#}
+{#        if (searchValue.length > 1){#}
+{#            location.href="/blog/search/" + searchValue + "/";#}
+{#        }#}
+{#        else{#}
+{#            alert('검색어('+ searchValue +')가 너무 짧습니다.');#}
+{#        }#}
+{#    };#}
+{##}
+{#    document.getElementById('search_input').addEventListener('keyup', function(event){#}
+{#        if(event.key === 'Enter'){#}
+{#            searchPost();#}
+{#        }#}
+{#    });#}
+{#</script>#}
+
+<!-- Navbar
+================================================== -->
+
+{% include 'blog/footer.html' %}
+
+<script src="{% static 'blog/_assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'blog/bootstrap/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'blog/_assets/js/custom.js' %}"></script>
+
+
+</body>
+</html>

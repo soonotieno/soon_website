@@ -10,3 +10,10 @@ def about_me(request):
         request,
         'basecamp/about_me.html'
     )
+
+
+def landing(request):
+    return render(
+        request,
+        'basecamp/landing.html'
+    )

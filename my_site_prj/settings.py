@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog',
+    'basecamp',
     'markdownx',
     'crispy_forms',
     'django.contrib.sites',
@@ -45,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'basecamp',
 ]
 
 MIDDLEWARE = [

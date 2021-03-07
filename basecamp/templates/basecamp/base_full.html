@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'blog/_assets/css/custom.min.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -19,7 +20,9 @@
 
 <!-- Navbar
 ================================================== -->
-
+<div class="fixed-bottom">
+{% include 'blog/footer.html' %}
+</div>
 <script src="{% static 'blog/_assets/js/jquery.min.js' %}"></script>
 <script src="{% static 'blog/bootstrap/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'blog/_assets/js/custom.js' %}"></script>

@@ -45,14 +45,20 @@
 
     <!-- Comments Form -->
     <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
+        <h5 class="card-header">댓글 :</h5>
         <div class="card-body">
+            {% if request.user.is_authenticated %}
             <form method="post" action="{{object.get_absolute_url}}new_comment/">{% csrf_token %}
                 <div class="form-group">
                     {{ comment_form | crispy }}
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            {% else %}
+            <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#loginModal">
+                Log In <small class="text-lg-left">(로그인이 필요한 서비스 입니다.)</small>
+            </button>
+            {% endif %}
         </div>
     </div>
 

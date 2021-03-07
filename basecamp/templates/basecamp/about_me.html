@@ -1,30 +1,171 @@
 {% extends 'basecamp/base_full.html' %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <h1 class="my-3">About Me</h1>
+    <link rel="stylesheet" href="{% static 'basecamp/css/about_me.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
 
-                <h3 class="my-3">안녕하세요. SooN InvesT 안종순 입니다.</h3>
-                <p class="font-weight-bold">이 웹사이트는 모든 사람들에게 유용한 금융/투자 정보를 공유하는 사이트입니다. python을 활용한 금융 데이터 분석을 통한 투자 정보 공유와 금융데이터 분석 결과를 django framework를 활용한 (이)사이트에 올릴 예정입니다.</p>
+    <section>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>안녕하세요. 달타냥입니다.</h1>
+                    <br/>
+                    <p class="lead">
+                        음악과 컴퓨터와 수영을 좋아합니다.<br/>
+                        데이터분석으로 돈을 벌고, 퇴근 후에는 운동을 하거나 책을 쓰면서 지냅니다.
+                    </p>
 
-                <p class="text-muted">"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
-            </div>
-            <div class="col-md">
-                <img class="img-fluid" src="{% static 'basecamp/images/soon.jpg' %}"/>
+                    <ul>
+                        <li>WORK EXPERIENCE</li>
+                        <ul>
+                            <li>크고좋은회사 - 빅데이터분석 (2019.10 ~)</li>
+                            <li>모모공공기관 (2016.02 ~ 2019.09)</li>
+                        </ul>
+                        <li>EDUCATION</li>
+                        <ul>
+                            <li>공학박사, 장고공학(Django Engineering), 파이썬대학교 (2010.03~2015.09)</li>
+                            <li>공학석사, 장고공학(Django Engineering), 파이썬대학교 (2007.09~2009.08)</li>
+                            <li>공학학사, 장고공학(Django Engineering), 파이썬대학교 (2003.03~2007.08)</li>
+                        </ul>
+                        <li>PUBLISH</li>
+                        <ul>
+                            <li>DO IT DJANGO, 이지스퍼블리싱 (2020)</li>
+                        </ul>
+                    </ul>
+
+                </div>
+                <div class="col-lg-4">
+                    <img class="img-fluid" src="{% static 'basecamp/images/soon2.jpg' %}">
+                </div>
             </div>
         </div>
-    <div class="row">
-        <div class="col-md-3">
-            <img class="img-fluid" src="{% static 'basecamp/images/contactus.jpg' %}"/>
+    </section>
+
+    <section class="bg-light margin-for-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>PORTFOLIO</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#pycon2017">
+                        <img class="card-img-top" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">파이썬으로 통계업무 자동화하기 [PYCON 2017]</h5>
+                            <p>Python, Django, Pandas, python-docx로 통계업무 자동화한 내용을 파이콘에서 발표했습니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#inflearn_django2">
+                        <img class="card-img-top" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">파이썬 사용자를 위한 웹개발 입문 A to Z Django + Bootstrap</h5>
+                            <p>파이썬 웹개발에 대한 인프런 동영상 강의입니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#automation_python">
+                        <img class="card-img-top" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">직장인을 위한 프로그래밍 입문과 업무자동화 활용</h5>
+                            <p>파이썬 업무자동화에 대한 인프런 동영상 강의입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="col-md">
-            <h3 class="my-2">Contact Us</h3>
-            <h5 class="my-1">E-mail : <small>soonotieno@gmail.com</small></h5>
-            <p class="text-muted">혹시 사이트에 대한 문의 사항이나 추가/개선 되었으면 하는 서비스가 있으면 언제든지 연락주십쇼!</p>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pycon2017" tabindex="-1" role="dialog" aria-labelledby="pycon2017ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pycon2017ModalLabel">파이썬으로 통계업무 자동화하기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <img class="img-fluid" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        </div>
+                        <div class="col-lg-5">
+                            <p>Python, Django, Pandas, python-docx로 통계업무 자동화한 내용을 파이콘에서 발표했습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div class="modal fade" id="inflearn_django2" tabindex="-1" role="dialog" aria-labelledby="inflearnDjangoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=" inflearnDjangoModalLabel">파이썬 사용자를 위한 웹개발 입문 A to Z Django + Bootstrap</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <img class="img-fluid" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        </div>
+                        <div class="col-lg-5">
+                            <p>파이썬 초보를 대상으로 한 웹개발 강좌입니다. 인프런에서 서비스하고 있습니다.</p>
+                            <button type="button" class="btn btn-light"><i class="fas fa-chalkboard-teacher"></i> 인프런</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <div class="modal fade" id="automation_python" tabindex="-1" role="dialog" aria-labelledby="automationPythonModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=" automationPythonModalLabel">직장인을 위한 프로그래밍 입문과 업무자동화 활용</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <img class="img-fluid" src="{% static 'basecamp/images/아무사진이나해.jpg' %}">
+                        </div>
+                        <div class="col-lg-5">
+                            <p>코딩에 대해 아무것도 모르는 직장인들도 쉽게 프로그래밍의 기본 개념과 문법을 실습을 통해 배우고, 파일 입출력, 엑셀 데이터 처리, MS-word 문서 자동으로 만들기, 그래프 그리기, 웹스크래핑 등을 배웁니다.</p>
+                            <button type="button" class="btn btn-light"><i class="fas fa-chalkboard-teacher"></i> 인프런</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 {% endblock %}

@@ -1,7 +1,17 @@
 {% extends 'basecamp/base_full.html' %}
 {% load static %}
 {% block content %}
-<h1>안녕하세요. 안종순입니다.</h1>
-<h2>대문페이지</h2>
-<h3>제작중</h3>
+<link rel="stylesheet" href="{% static 'basecamp/css/landing.css' %}">
+<section>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-6 text-light">
+                <h1 class="mt-5">Soon InvesT</h1>
+                <p>파이썬 진영의 가장 대표적인 웹프레임워크 중 하나인 django를 이용하여 여러분만의 블로그 사이트를 만들어보세요.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}

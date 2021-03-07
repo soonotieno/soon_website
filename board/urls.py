@@ -17,8 +17,9 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.BoardList.as_view()),
-    path('<int:pk>/', views.BoardDetail.as_view()),
+    path('free_board/', views.BoardList.as_view()),
+    path('free_board/<int:pk>/', views.BoardDetail.as_view()),
+
 
     # path('search/<str:q>/', views.PostSearch.as_view()),
     # path('tag/<str:slug>/', views.PostListByTag.as_view()),

@@ -7,7 +7,7 @@
         <div class="col-md-8 col-lg-9" id="main-area">
 
             <section class="py-1 text-center container">
-                <div class="row py-lg-5">
+                <div class="row py-lg-4">
                     <div class="col-lg-6 col-md-8 mx-auto">
 
                         <h1 class="fw-light">자유게시판</h1>
@@ -16,14 +16,6 @@
                     </div>
                 </div>
             </section>
-
-
-
-            <div class="alert alert-info small" role="alert">
-                이 페이지는 의견 교환을 위해 따로 만든 페이지입니다. 책에서 이 페이지를 만드는 법을 직접적으로 다루지는 않습니다. <br/> 하지만, 책을 끝까지 읽고 나면 이 페이지도 만드실 수 있을거에요.
-            </div>
-
-
 
             <table class="table" id="board-table">
                 <thead class="thead-dark">
@@ -97,8 +89,6 @@
 
                 </tbody>
             </table>
-
-
             <a href="/board/create/free-board/" class="btn btn-secondary float-right btn-sm" id="write-new"><i class="fas fa-pen"></i>&nbsp; 글쓰기</a>
 
 
@@ -109,23 +99,12 @@
                     <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
-
-
-
-
-
-
                     <li class="page-item active" aria-current="page">
               <span class="page-link">
                 1
                 <span class="sr-only">(current)</span>
               </span>
                     </li>
-
-
-
-
-
 
                     <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
@@ -156,23 +135,17 @@
             <!-- Categories Widget -->
             <div class="card" id="category-card">
                 <ul class="list-group list-group-flush">
-                    <li id="category-free-board"
-                        class="list-group-item bg-secondary text-white"
+                    <li id="category-free-board" class="list-group-item bg-dark text-white"
+                        class="list-group-item"
                         style="cursor:pointer"
-                        onclick="location.href='/board/free-board/'">
-                        자유게시판
+                        onclick="location.href='/board/free_board'">
+                        자유 게시판
                     </li>
                     <li id="category-qna"
                         class="list-group-item "
                         style="cursor:pointer"
-                        onclick="location.href='/board/qna/'">
+                        onclick="location.href='/board/qna_board/'">
                         Q&A
-                    </li>
-                    <li id="category-gallery"
-                        class="list-group-item "
-                        style="cursor:pointer"
-                        onclick="location.href='/board/gallery/'">
-                        웹사이트 자랑하기
                     </li>
                 </ul>
             </div>

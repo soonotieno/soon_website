@@ -11,3 +11,5 @@ class BoardList(ListView):
 
 class BoardDetail(DetailView):
     model = Board
+
+

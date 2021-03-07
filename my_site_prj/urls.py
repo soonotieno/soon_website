@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path('', include('basecamp.urls')),
     path('blog/', include('blog.urls')),
+    path('board/', include('board.urls')),
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
     path('accounts/', include('allauth.urls')),

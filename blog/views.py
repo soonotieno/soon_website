@@ -1,4 +1,7 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.utils.text import slugify
+
 from .models import Post, Category, Tag, Comment
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -59,6 +62,12 @@ class PostCreate(LoginRequiredMixin, CreateView):
         else:
             return redirect('/blog/')
 
+
+# class PostUpdate(UpdateView):
+#     model = Post
+#     fields = [
+#         'title', 'content', 'head_image', 'category', 'tags'
+#     ]
 
 class PostUpdate(UpdateView):
     model = Post

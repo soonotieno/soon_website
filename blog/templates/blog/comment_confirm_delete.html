@@ -1,7 +1,5 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}{{ object.title }} - Blog{% endblock %}
-
 {% block content %}
     <form method = "post">{% csrf_token %}
         {{ object.get_markdown_content | safe}}

@@ -31,7 +31,9 @@
 
     <!-- Preview Image -->
     {% if object.head_image %}
-    <img class="img-fluid rounded" src="{{ object.head_image.url }}" alt="{{ object.title }}">
+    <img class="img-fluid rounded" src="{{ object.head_image.url }}" alt="{{ object.title }}"><hr>
+    {% else %}
+    <img class="img-fluid rounded" src="https://picsum.photos/seed/{{ post.id }}/750/300" alt="Card image cap"><hr>
     {% endif %}
 
 

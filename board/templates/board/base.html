@@ -13,8 +13,12 @@
 
 {% include 'basecamp/navbar.html' %}
 
-{% block content %}
-{% endblock %}
+
+
+            {% block content %}
+            {% endblock %}
+
+
 
 <script>
     function search_post(){
@@ -50,7 +54,9 @@
 <!-- Navbar
 ================================================== -->
 
+<div class="fixed-bottom">
 {% include 'blog/footer.html' %}
+</div>
 
 <script src="{% static 'blog/_assets/js/jquery.min.js' %}"></script>
 <script src="{% static 'blog/bootstrap/bootstrap.bundle.min.js' %}"></script>

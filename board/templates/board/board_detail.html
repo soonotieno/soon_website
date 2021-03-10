@@ -1,16 +1,135 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Board Detail</title>
-</head>
-<body>
-<h1>게시판 상세 페이지</h1>
-    <h2>{{ board.title }}</h2>
-    <h4>{{ board.created_at }}</h4>
-    <p>{{ board.content }}</p>
-    <p>pk : {{ board.pk }}</p>
-    <hr/>
+{% extends 'board/base.html' %}
+{% block title %}{{ object.title }} - Board{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-9" id="main-area">
+
+                <section class="py-1 text-center container">
+                    <div class="row py-lg-4">
+                        <div class="col-lg-6 col-md-8 mx-auto">
+
+                            <h1 class="fw-light">자유게시판</h1>
+                            <p class="lead text-muted">여러분의 의견을 자유롭게 알려주세요.</p>
+
+                        </div>
+                    </div>
+                </section>
+
+                <div class="card">
+                    <div class="card-body" id="board-card-body">
+
+                        <div class="float-right">
+                            <a role="button"
+                               class="btn btn-sm btn-info"
+                               id="update-btn-32"
+                               href="/board/free-board/32/update/">
+                                edit
+                            </a>
+                            <a role="button"
+                               id="delete-btn-32"
+                               class="btn btn-sm btn-danger"
+                               href="/board/free-board/32/delete/">
+                                delete
+                            </a>
+                        </div>
+
+                        <h4 class="card-title">{{ board.title }}</h4>
+                        <p class="float-right"> <strong>작성일 : </strong> {{ board.created_at }}</p>
+                    <span class="badge badge-pill badge-light">
+                <img class="mr-1 rounded-circle" width="40px" src="" alt="">
+                    {{ board.author}}
+                     </span>
+                        <hr/>
+                        <p>{{ board.content}}</p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div id="comment-area">
+
+
+                    <!-- Comments Form -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Leave a Comment:</h5>
+                        <div class="card-body">
+
+                            <form id="comment-form" method="POST" action="/board/free-board/32/new_comment/">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="mrfbuC7uCRR9vTjqSGGV1Vz7FApHkK0Ih4Qnq9BjgogRgiBI3Bgi8kR9jpJl5Dq1">
+
+
+
+                                <div id="div_id_content" class="form-group"> <label for="id_content" class=" requiredField">
+                                    Content<span class="asteriskField">*</span> </label> <div class=""> <textarea name="content" cols="40" rows="10" class="summernotewidget form-control" id="id_content" hidden="true"></textarea><script>
+                                    var settings_id_content = {"width": "100%", "height": "480", "lang": "en-US", "toolbar": [["style", ["style"]], ["font", ["bold", "italic", "underline", "superscript", "subscript", "strikethrough", "clear"]], ["fontname", ["fontname"]], ["fontsize", ["fontsize"]], ["color", ["color"]], ["para", ["ul", "ol", "paragraph"]], ["height", ["height"]], ["table", ["table"]], ["insert", ["link", "picture", "video", "hr"]], ["view", ["fullscreen", "codeview"]], ["help", ["help"]]], "url": {"language": "/static/summernote/lang/summernote-en-US.min.js", "upload_attachment": "/summernote/upload_attachment/"}};
+                                </script>
+                                    <style>
+                                        iframe.note-fullscreen {
+                                            position: fixed;
+                                            top: 0;
+                                            left: 0;
+                                            width: 100vw!important;
+                                            height: 100vh!important;
+                                            z-index: 4000;
+                                        }
+                                    </style>
+                                    <div class="summernote-div"  class="summernotewidget form-control" cols="40" rows="10" width="100%" height="480"> <iframe id="id_content_iframe" src="/summernote/editor/id_content/" frameborder="0" width="100%" height="480"></iframe>
+                                    </div> </div> </div>
+
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <a href="/board/free_board/" role="button" type="button" class="btn btn-secondary float-right">목록보기</a>
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <div class="col-md-4 col-lg-3">
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Search</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..." id="search-input">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card" id="category-card">
+                    <ul class="list-group list-group-flush">
+                        <li id="category-free-board" class="list-group-item bg-dark text-white"
+                            class="list-group-item"
+                            style="cursor:pointer"
+                            onclick="location.href='/board/free_board'">
+                            자유 게시판
+                        </li>
+                        <li id="category-qna"
+                            class="list-group-item "
+                            style="cursor:pointer"
+                            onclick="location.href='/board/qna_board/'">
+                            Q&A
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

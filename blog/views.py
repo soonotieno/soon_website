@@ -51,7 +51,7 @@ class PostDetail(DetailView):
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = [
-        'title', 'content', 'head_image', 'category', 'tags'
+        'title', 'content', 'head_image', 'file_upload', 'category', 'tags'
     ]
 
     def form_valid(self, form):

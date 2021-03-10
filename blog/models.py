@@ -33,8 +33,8 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.TextField(max_length=30)
-    # hook_text = models.CharField(max_length=100, blank=True)  # 추가됨(추후 삭제)
-    # file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)  # 추가됨(추후 삭제)
+    hook_text = models.CharField(max_length=100, blank=True)  # 추가됨(추후 삭제)
+    file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)  # 추가됨(추후 삭제)
 
     content = MarkdownxField()
 

@@ -11,14 +11,17 @@
         {% if tag %}<small class="text-muted">: #{{ tag }}</small>{% endif %}
         {% if search_info %}<small class="text-muted">: {{ search_info }} ({{ object_list.count }})개</small>{% endif %}
     </h1>
+    <hr class="my-3">
+    <div class="my-5"></div>
+
 
     {% if object_list.exists %}
         {% for p in object_list %}
-            <div class="card mb-4" id="post-card-{{ p.pk}}">
+            <div class="card mb-4 " id="post-card-{{ p.pk}}">
                 {% if p.head_image %}
                     <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
                 {% else %}
-                    <img class="card-img-top" src="https://picsum.photos/seed/picsum/750/300" alt="Card image cap">
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/750/300" alt="Card image cap">
                 {% endif %}
 
                 <div class="card-body">
@@ -28,6 +31,9 @@
                     <span class="badge bg-warning float-right text-white" >기타</span>
                     {% endif %}
                     <h2 class="card-title">{{ p.title }}</h2>
+                    {% if p.hook_text %}
+                        <h5 class="text-muted">{{ p.hook_text }}</h5>
+                    {% endif %}
                     <p class="card-text">{{ p.content | truncatewords:50}}</p>
 
                        {% for tag in p.tags.all %}

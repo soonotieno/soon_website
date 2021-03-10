@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container my-3">
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-lg-9" id="main-area">
 
@@ -27,67 +27,23 @@
                     <th scope="col" class="text-center">댓글</th>
                 </tr>
                 </thead>
+                {% for p in board_list %}
                 <tbody>
-
-
-                <tr id="tr-25">
-                    <td>25</td>
-                    <td><a href="/board/free-board/25/">[정오표] 책에서 이상한 걸 발견한다면, 꼭 알려주세요.</a></td>
+                <tr id="tr-{{ p.pk }}">
+                    <td>{{ p.pk }}</td>
+                    <td><a href="/board/free_board/{{ p.pk }}/">{{p.title}}</a></td>
 
                     <td class="text-center">
                         <span class="badge badge-pill badge-light">
-                            <img class="mr-1 rounded-circle" width="20px" src="https://lh3.googleusercontent.com/a-/AOh14Gh_ATlfbdtmSt4bSJtmmK-hiCGYh4qWTDXUEt-HWg=s96-c" alt="sungyong">
-                                sungyong
+                            <img class="mr-1 rounded-circle" width="20px" src="/" alt="">
+                                {{ p.author }}
                         </span>
                     </td>
-                    <td class="small text-center">2 weeks, 3 days ago</td>
-                    <td class="text-center" id="board-25-comment-count">1</td>
+                    <td class="small text-center">{{ p.created_at}}</td>
+                    <td class="text-center" id="board-{{ p.pk }}-comment-count">1</td>
                 </tr>
-
-                <tr id="tr-18">
-                    <td>18</td>
-                    <td><a href="/board/free-board/18/">추가로 공부하고싶을때 도움받을만한 책이 또 있을까요?</a></td>
-
-                    <td class="text-center">
-                        <span class="badge badge-pill badge-light">
-                            <img class="mr-1 rounded-circle" width="20px" src="https://avataaars.io/?avatarStyle=Circle&amp;topType=LongHairBun&amp;accessoriesType=Round&amp;hairColor=Black&amp;facialHairType=MoustacheMagnum&amp;clotheType=CollarSweater&amp;eyeType=Wink_Wacky&amp;eyebrowType=UpDownNatural&amp;mouthType=Vomit&amp;skinColor=Brown" alt="yepp4359">
-                                yepp4359
-                        </span>
-                    </td>
-                    <td class="small text-center">3 weeks, 4 days ago</td>
-                    <td class="text-center" id="board-18-comment-count">2</td>
-                </tr>
-
-                <tr id="tr-17">
-                    <td>17</td>
-                    <td><a href="/board/free-board/17/">자유로운 글쓰기</a></td>
-
-                    <td class="text-center">
-                        <span class="badge badge-pill badge-light">
-                            <img class="mr-1 rounded-circle" width="20px" src="https://lh3.googleusercontent.com/a-/AOh14GhJPc1g1oHaMkEgVT5oaELiJxwJ5_1BRINLCxbkLw=s96-c" alt="solideogsus">
-                                solideogsus
-                        </span>
-                    </td>
-                    <td class="small text-center">3 weeks, 4 days ago</td>
-                    <td class="text-center" id="board-17-comment-count">3</td>
-                </tr>
-
-                <tr id="tr-1">
-                    <td>1</td>
-                    <td><a href="/board/free-board/1/">자유로운 의견을 작성해주세요.</a></td>
-
-                    <td class="text-center">
-                        <span class="badge badge-pill badge-light">
-                            <img class="mr-1 rounded-circle" width="20px" src="https://lh3.googleusercontent.com/a-/AOh14Gh_ATlfbdtmSt4bSJtmmK-hiCGYh4qWTDXUEt-HWg=s96-c" alt="sungyong">
-                                sungyong
-                        </span>
-                    </td>
-                    <td class="small text-center">1 month, 2 weeks ago</td>
-                    <td class="text-center" id="board-1-comment-count">1</td>
-                </tr>
-
-
                 </tbody>
+                {% endfor %}
             </table>
             <a href="/board/create/free-board/" class="btn btn-secondary float-right btn-sm" id="write-new"><i class="fas fa-pen"></i>&nbsp; 글쓰기</a>
 

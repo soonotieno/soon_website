@@ -1,7 +1,7 @@
         <!-- NavBar Start -->
 <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="navbar">
     <div class="container">
-        <a href="../" class="navbar-brand">SooN InvesT</a>
+        <a href="/" class="navbar-brand">SooN InvesT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,14 +48,14 @@
 {#                        <a class="dropdown-item" href="../4/simplex/bootstrap.css" download>bootstrap.css</a>#}
 {#                        <div class="dropdown-divider"></div>#}
 {#                        <a class="dropdown-item" href="../4/simplex/_variables.scss" download>_variables.scss</a>#}
-                        <a class="dropdown-item" href="/accounts/logout/">Log out</a>
+                        <a class="dropdown-item" href="/accounts/logout/">로그아웃</a>
                     </div>
                 </li>
                 {% else %}
                     <li class="nav-item">
                     <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                            Log in
+                            로그인
                         </button>
                     </li>
                 {% endif %}
@@ -71,7 +71,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Please Log in</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-sign-in-alt"></i>&nbsp;로그인</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -80,12 +80,12 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <a role="button" class="btn btn-outline-primary" href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i> log in with Google</a>
-                                <a role="button" class="btn btn-outline-info" href="/accounts/login"><i class="fas fa-envelope"></i> log in with E-mail</a>
+                                <a role="button" class="btn btn-outline-primary btn-block btn-sm" href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i> 구글로 로그인하기</a>
+                                <a role="button" class="btn btn-outline-info btn-block btn-sm " href="/accounts/login"><i class="fas fa-envelope"></i> 이메일로 로그인하기</a>
                             </div>
                             <div class="col-md-6">
-                                <a role="button" class="btn btn-outline-info" href="/accounts/signup"><i class="fas fa-envelope"></i> Sign Up with Email</a>
-                            </div>
+                                <a role="button" class="btn btn-outline-info btn-block btn-sm float-right" href="/accounts/signup"><i class="fas fa-envelope"></i> 이메일로 회원가입하기</a>
+                                </div>
                         </div>
 
 

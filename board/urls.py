@@ -19,6 +19,9 @@ from . import views
 urlpatterns = [
     path('free_board/', views.BoardList.as_view()),
     path('free_board/<int:pk>/', views.BoardDetail.as_view()),
+    path('create_board/', views.BoardCreate.as_view()),
+    path('create/free-board/', views.BoardCreate.as_view()),
+
 
 
     # path('search/<str:q>/', views.PostSearch.as_view()),

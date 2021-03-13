@@ -1,4 +1,5 @@
 {% extends 'board/base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}{{ object.title }} - Board{% endblock %}
 
 {% block content %}
@@ -19,12 +20,12 @@
 
                 <div class="card">
                     <div class="card-body" id="board-card-body">
-
+                        {% if user.is_authenticated and user == board.author %}
                         <div class="float-right">
                             <a role="button"
                                class="btn btn-sm btn-info"
-                               id="update-btn-32"
-                               href="/board/free-board/32/update/">
+                               id="update-btn-{{ board.pk }}"
+                               href="/board/update_board/{{ board.pk }}/">
                                 edit
                             </a>
                             <a role="button"
@@ -34,6 +35,7 @@
                                 delete
                             </a>
                         </div>
+                        {% endif %}
 
                         <h4 class="card-title">{{ board.title }}</h4>
                         <p class="float-right"> <strong>작성일 : </strong> {{ board.created_at }}</p>
@@ -48,54 +50,80 @@
 
                 <br/>
 
-                <div id="comment-area">
 
-
-                    <!-- Comments Form -->
+                <div class="comment-area">
+                <!-- Comments Form -->
                     <div class="card my-4">
-                        <h5 class="card-header">Leave a Comment:</h5>
+                        <h5 class="card-header">댓글 달기 :</h5>
                         <div class="card-body">
-
-                            <form id="comment-form" method="POST" action="/board/free-board/32/new_comment/">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="mrfbuC7uCRR9vTjqSGGV1Vz7FApHkK0Ih4Qnq9BjgogRgiBI3Bgi8kR9jpJl5Dq1">
-
-
-
-                                <div id="div_id_content" class="form-group"> <label for="id_content" class=" requiredField">
-                                    Content<span class="asteriskField">*</span> </label> <div class=""> <textarea name="content" cols="40" rows="10" class="summernotewidget form-control" id="id_content" hidden="true"></textarea><script>
-                                    var settings_id_content = {"width": "100%", "height": "480", "lang": "en-US", "toolbar": [["style", ["style"]], ["font", ["bold", "italic", "underline", "superscript", "subscript", "strikethrough", "clear"]], ["fontname", ["fontname"]], ["fontsize", ["fontsize"]], ["color", ["color"]], ["para", ["ul", "ol", "paragraph"]], ["height", ["height"]], ["table", ["table"]], ["insert", ["link", "picture", "video", "hr"]], ["view", ["fullscreen", "codeview"]], ["help", ["help"]]], "url": {"language": "/static/summernote/lang/summernote-en-US.min.js", "upload_attachment": "/summernote/upload_attachment/"}};
-                                </script>
-                                    <style>
-                                        iframe.note-fullscreen {
-                                            position: fixed;
-                                            top: 0;
-                                            left: 0;
-                                            width: 100vw!important;
-                                            height: 100vh!important;
-                                            z-index: 4000;
-                                        }
-                                    </style>
-                                    <div class="summernote-div"  class="summernotewidget form-control" cols="40" rows="10" width="100%" height="480"> <iframe id="id_content_iframe" src="/summernote/editor/id_content/" frameborder="0" width="100%" height="480"></iframe>
-                                    </div> </div> </div>
-
-
+                            {% if user.is_authenticated %}
+                            <form id="comment-form" method="POST" action="{{ board.get_absolute_url }}new_comment/">
+                               {% csrf_token %}
+                                <div class="form-group">
+                                    {{comment_form | crispy}}
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
-
+                            {% else %}
+                            <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#loginModal">
+                                Log In <small class="text-lg-left">(로그인이 필요한 서비스 입니다.)</small>
+                            </button>
+                            {% endif %}
                         </div>
                     </div>
+
+                    {% if board.boardcomment_set.exists %}
+                        {% for comment in board.boardcomment_set.iterator %}
+                        <!-- Single Comments  -->
+                            <div class="media mb-4" id="comment-{{ comment.pk }}">
+                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                                <div class="media-body">
+                                    {% if user.is_authenticated and comment.author == user %}
+                                        <div class="float-right">
+                                            <button class="btn-sm btn-info float-right"  onclick="location.href='/board/free_board/update_comment/{{ comment.pk }}/'">수정</button>
+                                            <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">정말로 아래 댓글을 삭제 하시겠습니까?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>{{ comment | linebreaks }}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" onclick="location.href='/board/free_board/delete_comment/{{ comment.pk }}/'">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {% endif %}
+                                    <h5 class="mt-0">
+                                        {{ comment.author.username }} &nbsp;&nbsp;<small class="text-muted">
+                                        {{ comment.created_at }}
+                                    </small>
+                                    </h5>
+                                    <p>{{ comment.content | linebreaks }}</p>
+                                {% if comment.created_at != comment.modified_at %}
+                                    <p class="text-muted float-right"><small>수정일 : {{ comment.modified_at }}</small></p>
+                                {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                 </div>
+            <hr>
                 <a href="/board/free_board/" role="button" type="button" class="btn btn-secondary float-right">목록보기</a>
-
-
-
-
-
-
             </div>
-
-
-
 
             <div class="col-md-4 col-lg-3">
                 <!-- Search Widget -->
@@ -131,5 +159,6 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
 

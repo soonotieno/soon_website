@@ -74,6 +74,7 @@ class PostUpdate(UpdateView):
     fields = [
         'title', 'content', 'head_image', 'category', 'tags'
     ]
+    template_name = 'blog/post_update.html/'
 
 
 class PostListByTag(ListView):

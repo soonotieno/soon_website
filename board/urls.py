@@ -19,10 +19,11 @@ from . import views
 urlpatterns = [
     path('free_board/', views.BoardList.as_view()),
     path('free_board/<int:pk>/', views.BoardDetail.as_view()),
-    path('create_board/', views.BoardCreate.as_view()),
-    path('create/free-board/', views.BoardCreate.as_view()),
-
-
+    path('create/free_board/', views.BoardCreate.as_view()),
+    path('update_board/<int:pk>/', views.BoardUpdate.as_view()),
+    path('free_board/<int:pk>/new_comment/', views.new_comment),
+    path('free_board/update_comment/<int:pk>/', views.CommentUpdate.as_view()),
+    path('free_board/delete_comment/<int:pk>/', views.delete_comment),
 
     # path('search/<str:q>/', views.PostSearch.as_view()),
     # path('tag/<str:slug>/', views.PostListByTag.as_view()),

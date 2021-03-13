@@ -1,5 +1,5 @@
 {% extends 'board/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}{{ object.title }} - Blog{% endblock %}
 
 {% block content %}
@@ -9,14 +9,11 @@
     <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-12" id="main-div">
-            <h1>Create New Board</h1>
+        <div class="col-md-8" id="main-div">
+            <h1>게시판 글쓰기</h1>
             <hr/>
             <form method="post" enctype="multipart/form-data">{% csrf_token %}
-                <table>
-                    {{ form }}
-                </table>
-
+                    {{ form | crispy}}
                 <button type="submit" class="btn btn-primary float-right">Submit</button>
 
             </form>

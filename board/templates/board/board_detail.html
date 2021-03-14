@@ -3,162 +3,116 @@
 {% block title %}{{ object.title }} - Board{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-lg-9" id="main-area">
+    <div class="card">
+        <div class="card-body" id="board-card-body">
+            {% if user.is_authenticated and user == board.author %}
+                <div class="float-right">
+                    <a role="button"
+                       class="btn btn-sm btn-info"
+                       id="update-btn-{{ board.pk }}"
+                       href="/board/update_board/{{ board.pk }}/">
+                        edit
+                    </a>
+                    <a role="button"
+                       id="delete-btn-32"
+                       class="btn btn-sm btn-danger"
+                       href="/board/delete_board/{{ board.pk}}/">
+                        delete
+                    </a>
+                </div>
+            {% endif %}
 
-                <section class="py-1 text-center container">
-                    <div class="row py-lg-4">
-                        <div class="col-lg-6 col-md-8 mx-auto">
-
-                            <h1 class="fw-light">자유게시판</h1>
-                            <p class="lead text-muted">여러분의 의견을 자유롭게 알려주세요.</p>
-
-                        </div>
-                    </div>
-                </section>
-
-                <div class="card">
-                    <div class="card-body" id="board-card-body">
-                        {% if user.is_authenticated and user == board.author %}
-                        <div class="float-right">
-                            <a role="button"
-                               class="btn btn-sm btn-info"
-                               id="update-btn-{{ board.pk }}"
-                               href="/board/update_board/{{ board.pk }}/">
-                                edit
-                            </a>
-                            <a role="button"
-                               id="delete-btn-32"
-                               class="btn btn-sm btn-danger"
-                               href="/board/free-board/32/delete/">
-                                delete
-                            </a>
-                        </div>
-                        {% endif %}
-
-                        <h4 class="card-title">{{ board.title }}</h4>
-                        <p class="float-right"> <strong>작성일 : </strong> {{ board.created_at }}</p>
-                    <span class="badge badge-pill badge-light">
-                <img class="mr-1 rounded-circle" width="40px" src="" alt="">
+            <h4 class="card-title">{{ board.title }}</h4>
+            <p class="float-right"> <strong>작성일 : </strong> {{ board.created_at }}</p>
+            <span class="badge badge-pill badge-light">
+                <img class="mr-1 rounded-circle" width="40px" src="" alt=""><small class="text-muted">by</small>
                     {{ board.author}}
-                     </span>
-                        <hr/>
-                        <p>{{ board.content}}</p>
-                    </div>
-                </div>
-
-                <br/>
-
-
-                <div class="comment-area">
-                <!-- Comments Form -->
-                    <div class="card my-4">
-                        <h5 class="card-header">댓글 달기 :</h5>
-                        <div class="card-body">
-                            {% if user.is_authenticated %}
-                            <form id="comment-form" method="POST" action="{{ board.get_absolute_url }}new_comment/">
-                               {% csrf_token %}
-                                <div class="form-group">
-                                    {{comment_form | crispy}}
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                            {% else %}
-                            <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#loginModal">
-                                Log In <small class="text-lg-left">(로그인이 필요한 서비스 입니다.)</small>
-                            </button>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    {% if board.boardcomment_set.exists %}
-                        {% for comment in board.boardcomment_set.iterator %}
-                        <!-- Single Comments  -->
-                            <div class="media mb-4" id="comment-{{ comment.pk }}">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                                <div class="media-body">
-                                    {% if user.is_authenticated and comment.author == user %}
-                                        <div class="float-right">
-                                            <button class="btn-sm btn-info float-right"  onclick="location.href='/board/free_board/update_comment/{{ comment.pk }}/'">수정</button>
-                                            <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
-                                        </div>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">정말로 아래 댓글을 삭제 하시겠습니까?</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>{{ comment | linebreaks }}</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" onclick="location.href='/board/free_board/delete_comment/{{ comment.pk }}/'">Delete</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    {% endif %}
-                                    <h5 class="mt-0">
-                                        {{ comment.author.username }} &nbsp;&nbsp;<small class="text-muted">
-                                        {{ comment.created_at }}
-                                    </small>
-                                    </h5>
-                                    <p>{{ comment.content | linebreaks }}</p>
-                                {% if comment.created_at != comment.modified_at %}
-                                    <p class="text-muted float-right"><small>수정일 : {{ comment.modified_at }}</small></p>
-                                {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
-            <hr>
-                <a href="/board/free_board/" role="button" type="button" class="btn btn-secondary float-right">목록보기</a>
-            </div>
-
-            <div class="col-md-4 col-lg-3">
-                <!-- Search Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Search</h5>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for..." id="search-input">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Categories Widget -->
-                <div class="card" id="category-card">
-                    <ul class="list-group list-group-flush">
-                        <li id="category-free-board" class="list-group-item bg-dark text-white"
-                            class="list-group-item"
-                            style="cursor:pointer"
-                            onclick="location.href='/board/free_board'">
-                            자유 게시판
-                        </li>
-                        <li id="category-qna"
-                            class="list-group-item "
-                            style="cursor:pointer"
-                            onclick="location.href='/board/qna_board/'">
-                            Q&A
-                        </li>
-                    </ul>
-                </div>
-            </div>
+             </span>
+            <hr/>
+            <p>{{ board.content}}</p>
         </div>
     </div>
+
+    <br/>
+
+
+    <div class="comment-area">
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">댓글 달기 :</h5>
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                    <form id="comment-form" method="POST" action="{{ board.get_absolute_url }}new_comment/">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{comment_form | crispy}}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                {% else %}
+                    <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="modal" data-target="#loginModal">
+                        Log In <small class="text-lg-left">(로그인이 필요한 서비스 입니다.)</small>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if board.boardcomment_set.exists %}
+            {% for comment in board.boardcomment_set.iterator %}
+                <!-- Single Comments  -->
+                <div class="media mb-4" id="comment-{{ comment.pk }}">
+                    {% if comment.author.socialaccount_set.all.0.get_avatar_url %}
+                        <img width="50px" class="d-flex mr-3 rounded-circle" src="{{ comment.author.socialaccount_set.all.0.get_avatar_url }}" alt="">
+                    {% else %}
+                        <img width="50px" class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    {% endif %}
+                    <div class="media-body">
+                        {% if user.is_authenticated and comment.author == user %}
+                            <div class="float-right">
+                                <button class="btn-sm btn-info float-right"  onclick="location.href='/board/free_board/update_comment/{{ comment.pk }}/'">수정</button>
+                                <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">정말로 아래 댓글을 삭제 하시겠습니까?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{{ comment | linebreaks }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" onclick="location.href='/board/free_board/delete_comment/{{ comment.pk }}/'">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                        <h5 class="mt-0">
+                            {{ comment.author.username }} &nbsp;&nbsp;<small class="text-muted">
+                            {{ comment.created_at }}
+                        </small>
+                        </h5>
+                        <p>{{ comment.content | linebreaks }}</p>
+                        {% if comment.created_at != comment.modified_at %}
+                            <p class="text-muted float-right"><small>수정일 : {{ comment.modified_at }}</small></p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+    <hr>
+    <a href="/board/free_board/" role="button" type="button" class="btn btn-secondary float-right">목록보기</a>
+
 
 {% endblock %}
 

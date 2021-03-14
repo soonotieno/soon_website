@@ -1,113 +1,69 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
+    {% if search_info %}<Span class="text-muted"> 게시판 : {{ search_info }} ({{ object_list.count }})개</Span>{% endif %}
+    <table class="table" id="board-table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-center">제목</th>
+            <th scope="col" class="text-center">작성자</th>
+            <th scope="col" class="text-center">작성일</th>
+            <th scope="col" class="text-center">댓글</th>
+        </tr>
+        </thead>
+        {% for p in board_list %}
+            <tbody>
+            <tr id="tr-{{ p.pk }}">
+                <td>{{ p.pk }}</td>
+                <td><a href="/board/free_board/{{ p.pk }}/">{{p.title}}</a></td>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-lg-9" id="main-area">
-
-            <section class="py-1 text-center container">
-                <div class="row py-lg-4">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-
-                        <h1 class="fw-light">자유게시판</h1>
-                        <p class="lead text-muted">여러분의 의견을 자유롭게 알려주세요.</p>
-
-                    </div>
-                </div>
-            </section>
-
-            <table class="table" id="board-table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" class="text-center">제목</th>
-                    <th scope="col" class="text-center">작성자</th>
-                    <th scope="col" class="text-center">작성일</th>
-                    <th scope="col" class="text-center">댓글</th>
-                </tr>
-                </thead>
-                {% for p in board_list %}
-                <tbody>
-                <tr id="tr-{{ p.pk }}">
-                    <td>{{ p.pk }}</td>
-                    <td><a href="/board/free_board/{{ p.pk }}/">{{p.title}}</a></td>
-
-                    <td class="text-center">
-                        <span class="badge badge-pill badge-light">
+                <td class="text-center">
+                        <span class="badge badge-pill badge-light text-muted">
                             <img class="mr-1 rounded-circle" width="20px" src="/" alt="">
-                                {{ p.author }}
+                            {{ p.author }}
                         </span>
-                    </td>
-                    <td class="small text-center">{{ p.created_at}}</td>
-                    <td class="text-center" id="board-{{ p.pk }}-comment-count">1</td>
-                </tr>
-                </tbody>
-                {% endfor %}
-            </table>
-            <a href="/board/create/free_board/" class="btn btn-secondary float-right btn-sm" id="write-new"><i class="fas fa-pen"></i>&nbsp; 글쓰기</a>
+                </td>
+                <td class="small text-center">{{ p.created_at}}</td>
+                <td class="text-center" id="board-{{ p.pk }}-comment-count">{{ p.boardcomment_set.count }}</td>
 
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    {% if request.user.is_authenticated %}
+        <a href="/board/create/free_board/" class="btn btn-secondary float-right btn-sm" id="write-new"><i class="fas fa-pen"></i>&nbsp; 글쓰기</a>
+    {% else %}
+        <button type="button" class="btn btn-outline-secondary float-right" data-toggle="modal" data-target="#loginModal">
+                글쓰기 <small class="text-lg-left">(Click to log In)</small>
+        </button>
+    {% endif %}
 
-            <!--Pagination-->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
+    {% if is_paginated %}
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+            {% endif %}
 
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-              <span class="page-link">
-                1
-                <span class="sr-only">(current)</span>
-              </span>
-                    </li>
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!--end of Pagination-->
-
-            <hr/>
-
-        </div>
-
-        <div class="col-md-4 col-lg-3">
-            <!-- Search Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Search</h5>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." id="search-input">
-                        <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
-                            </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Categories Widget -->
-            <div class="card" id="category-card">
-                <ul class="list-group list-group-flush">
-                    <li id="category-free-board" class="list-group-item bg-dark text-white"
-                        class="list-group-item"
-                        style="cursor:pointer"
-                        onclick="location.href='/board/free_board'">
-                        자유 게시판
-                    </li>
-                    <li id="category-qna"
-                        class="list-group-item "
-                        style="cursor:pointer"
-                        onclick="location.href='/board/qna_board/'">
-                        Q&A
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 {% endblock %}

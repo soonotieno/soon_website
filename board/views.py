@@ -4,11 +4,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from .models import Board, BoardComment
 from .forms import CommentForm
+from django.db.models import Q
 
 
 class BoardList(ListView):
     model = Board
     ordering = '-pk'
+    paginate_by = 7
 
 
 class BoardDetail(DetailView):
@@ -82,3 +84,17 @@ def delete_comment(request, pk):
         return redirect(board.get_absolute_url())
     else:
         raise PermissionDenied
+
+
+class BoardSearch(BoardList):
+    paginate_by = None
+
+    def get_queryset(self):
+        q = self.kwargs['q']
+        object_list = Board.objects.filter(Q(title__contains=q) | Q(content__contains=q))
+        return object_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(BoardSearch, self).get_context_data()
+        context['search_info'] = "'{}' 검색 결과".format(self.kwargs['q'])
+        return context

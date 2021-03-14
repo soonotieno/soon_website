@@ -24,6 +24,8 @@ urlpatterns = [
     path('free_board/<int:pk>/new_comment/', views.new_comment),
     path('free_board/update_comment/<int:pk>/', views.CommentUpdate.as_view()),
     path('free_board/delete_comment/<int:pk>/', views.delete_comment),
+    path('free_board/search/<str:q>/', views.BoardSearch.as_view()),
+
 
     # path('search/<str:q>/', views.PostSearch.as_view()),
     # path('tag/<str:slug>/', views.PostListByTag.as_view()),

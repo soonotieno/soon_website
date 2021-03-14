@@ -71,7 +71,7 @@
                     <img width="50px" class="d-flex mr-3 rounded-circle" src="{{ comment.author.socialaccount_set.all.0.get_avatar_url }}" alt="">
                 {% else %}
                     <img width="50px" class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                {% endif %}
+                {% endif %} 
                 <div class="media-body">
                     {% if comment.author == request.user %}
                         <button class="btn-sm btn-info float-right"  onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">수정</button>

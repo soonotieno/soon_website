@@ -19,9 +19,14 @@
                 <td><a href="/board/free_board/{{ p.pk }}/">{{p.title}}</a></td>
 
                 <td class="text-center">
-                        <span class="badge badge-pill badge-light text-muted">
-                            <img class="mr-1 rounded-circle" width="20px" src="/" alt="">
+                        <span class="badge badge-light">
+                            {% if p.author.socialaccount_set.all.0.get_avatar_url %}
+                            <img class="mr-1 rounded-circle" width="20px" src="{{p.author.socialaccount_set.all.0.get_avatar_url}}" alt="">
                             {{ p.author }}
+                            {% else %}
+                            <img class="mr-1 rounded-circle" width="20px" src="http://placehold.it/50x50" alt="">
+                            {{ p.author }}
+                            {% endif %}
                         </span>
                 </td>
                 <td class="small text-center">{{ p.created_at}}</td>

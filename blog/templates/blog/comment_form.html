@@ -1,16 +1,21 @@
-<div class="container">{% extends 'basecamp/base_full.html' %}</div>
+<div class="container">{% extends 'blog/base_full.html' %}</div>
 {% load crispy_forms_tags %}
 {% block title %}Edit Comment - Blog{% endblock %}
 
 {% block content %}
-    <h1>Edit Comment</h1>
-    <hr/>
-    <form method = "post" id="comment-form">{% csrf_token %}
-    {{ form | crispy }}
-    <button type="submit" class="btn btn-outline-dark float-right">수정하기</button>
-    </form>
+    <div class="container my-3 margin-for-footer">
+
+        <div class="row">
+
+            <div class="col-md-8" id="main-div">
+                <h1>Edit Comment</h1>
+                <hr/>
+                <form method = "post" id="comment-form">{% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-outline-dark float-right">수정하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
-<div class="fixed-bottom">
-{% include 'blog/footer.html' %}
-</div>

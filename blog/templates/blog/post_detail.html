@@ -75,7 +75,7 @@
                 <div class="media-body">
                     {% if comment.author == request.user %}
                         <button class="btn-sm btn-info float-right"  onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">수정</button>
-                        <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
+                        <button class="btn-sm btn-warning float-right" style="margin-right: 5px" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
                     {% endif %}
                     <h5 class="mt-0"> {{ comment.author }} <small class="text-muted">  {{ comment.created_at }}</small></h5>
                     {{ comment.get_markdown_content | safe }}

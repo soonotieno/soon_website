@@ -7,19 +7,43 @@
         <div class="card-body" id="board-card-body">
             {% if user.is_authenticated and user == board.author %}
                 <div class="float-right">
-                    <a role="button"
-                       class="btn btn-sm btn-info"
-                       id="update-btn-{{ board.pk }}"
-                       href="/board/update_board/{{ board.pk }}/">
-                        edit
-                    </a>
-                    <a role="button"
-                       id="delete-btn-32"
-                       class="btn btn-sm btn-danger"
-                       href="/board/delete_board/{{ board.pk}}/">
-                        delete
-                    </a>
+{#                    <a role="button"#}
+{#                       class="btn btn-sm btn-info"#}
+{#                       id="update-btn-{{ board.pk }}"#}
+{#                       href="/board/update_board/{{ board.pk }}/">#}
+{#                        edit#}
+{#                    </a>#}
+{#                    <a role="button"#}
+{#                       id="delete-btn-32"#}
+{#                       class="btn btn-sm btn-danger"#}
+{#                       href="/board/delete_board/{{ board.pk}}/">#}
+{#                        delete#}
+{#                    </a>#}
+                    <button class="btn-sm btn-primary float-right"  data-toggle="modal" data-target="#deleteBoardModal-{{ board.pk }}">게시판 삭제</button>
+                    <button class="btn-sm btn-info float-right" style="margin-right: 5px" onclick="location.href='/board/update_board/{{ board.pk }}/'">게시판 수정</button>
                 </div>
+
+                <!-- Board Modal -->
+                <div class="modal fade" id="deleteBoardModal-{{ board.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">정말로 아래 댓글을 삭제 하시겠습니까?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ board.title | linebreaks }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='/board/delete_board/{{ board.pk }}/'">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             {% endif %}
 
             <h4 class="card-title">{{ board.title }}</h4>
@@ -70,10 +94,10 @@
                         {% if user.is_authenticated and comment.author == user %}
                             <div class="float-right">
                                 <button class="btn-sm btn-info float-right"  onclick="location.href='/board/free_board/update_comment/{{ comment.pk }}/'">수정</button>
-                                <button class="btn-sm btn-warning float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
+                                <button class="btn-sm btn-warning float-right" style="margin-right: 5px" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">삭제</button>
                             </div>
 
-                            <!-- Modal -->
+                            <!-- Comment Modal -->
                             <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -93,6 +117,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                         {% endif %}
                         <h5 class="mt-0">

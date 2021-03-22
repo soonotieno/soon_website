@@ -98,3 +98,12 @@ class BoardSearch(BoardList):
         context = super(BoardSearch, self).get_context_data()
         context['search_info'] = "'{}' 검색 결과".format(self.kwargs['q'])
         return context
+
+
+def delete_board(request, pk):
+    board = Board.objects.get(pk=pk)
+    if request.user == board.author:
+        board.delete()
+        return redirect('/board/free_board/')
+    else:
+        raise PermissionError('댓글을 삭제할 권한이 없습니다.')

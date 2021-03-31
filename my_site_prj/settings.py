@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'blog',
     'basecamp',
     'board',
+    'data_analysis',
     'markdownx',
     'crispy_forms',
     'django.contrib.sites',
@@ -86,7 +87,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'stock_db': {
+        'NAME': 'soon',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': 'tjqltm12@@',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    },
 }
 
 # Password validation
@@ -142,3 +151,5 @@ MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/blog/'
+
+DATABASE_ROUTERS = ['routers.db_routers.DemoRouter', ]

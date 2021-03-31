@@ -6,3 +6,5 @@ venv/
 db.sqlite3
 
 migrations/
+
+data_analysis/

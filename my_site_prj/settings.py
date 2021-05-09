@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+    'django_filters',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,6 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
+
     'stock_db': {
         'NAME': 'soon',
         'ENGINE': 'django.db.backends.mysql',
@@ -96,6 +99,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     },
+
 }
 
 # Password validation
@@ -152,4 +156,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/blog/'
 
-DATABASE_ROUTERS = ['routers.db_routers.DemoRouter', ]
+DATABASE_ROUTERS = ['routers.db_routers.DemoRouter']
+
+DATABASE_APPS_MAPPING = {'stock_db': 'soon', }

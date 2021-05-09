@@ -7,7 +7,6 @@ from markdownx.utils import markdown
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
     description = models.TextField(blank=True)
-
     slug = models.SlugField(unique=True, allow_unicode=True)
 
     def __str__(self):
@@ -35,15 +34,10 @@ class Post(models.Model):
     title = models.TextField(max_length=30)
     hook_text = models.CharField(max_length=100, blank=True)  # 추가됨(추후 삭제)
     file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)  # 추가됨(추후 삭제)
-
     content = MarkdownxField()
-
     head_image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True)
-
     created = models.DateTimeField(auto_now_add=True)
-
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 
@@ -67,7 +61,6 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = MarkdownxField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

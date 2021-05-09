@@ -10,13 +10,18 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-8" id="main-div">
+
             <h1>포스트 수정하기</h1>
             <hr/>
-            <form method="post" enctype="multipart/form-data">{% csrf_token %}
-                    {{ form | crispy}}
-                <button type="submit" class="btn btn-primary float-right">Submit</button>
 
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ form | crispy}}
+                <button type="submit" class="btn btn-primary float-right">
+                    Submit
+                </button>
             </form>
+
         </div>
 
         <!-- Sidebar Widgets Column -->

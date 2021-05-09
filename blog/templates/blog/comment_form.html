@@ -8,12 +8,17 @@
         <div class="row">
 
             <div class="col-md-8" id="main-div">
+
                 <h1>Edit Comment</h1>
                 <hr/>
+
                 <form method = "post" id="comment-form">{% csrf_token %}
                     {{ form | crispy }}
-                    <button type="submit" class="btn btn-outline-dark float-right">수정하기</button>
+                    <button type="submit" class="btn btn-outline-dark float-right">
+                        수정하기
+                    </button>
                 </form>
+
             </div>
         </div>
     </div>

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'blog',
     'basecamp',
     'board',
+
     'data_analysis',
     'markdownx',
     'crispy_forms',
@@ -159,3 +160,4 @@ LOGIN_REDIRECT_URL = '/blog/'
 DATABASE_ROUTERS = ['routers.db_routers.DemoRouter']
 
 DATABASE_APPS_MAPPING = {'stock_db': 'soon', }
+

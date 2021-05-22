@@ -51,3 +51,4 @@ class DailyPriceList(ListView):
         daily_price_all = DailyPrice.objects.extra(tables=['company_info'], where=['company_info.code=daily_price.code'])
 
         return daily_price_all
+
